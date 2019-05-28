@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 19:28:19 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/28 19:44:50 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/28 20:01:34 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 
 # define BUF_SIZE			(1 << 16)
 
-int							jtoc_read_file(const char *path, char *res);
+int							jtoc_read_file(const char *path, char **res);
 
 #endif
