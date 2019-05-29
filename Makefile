@@ -3,35 +3,33 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/28 19:54:03 by sbednar          ###   ########.fr        #
+#    Updated: 2019/05/29 00:52:35 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-include				../Makefile.inc
-
 NAME 			=	libjtoc.a
-
-INC_FT			=	../libft/include
 
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
 INC_DIR			=	./include
 
-SRC				=	main.c reader.c
+SRC				=	main.c	\
+					jtoc_read_file.c \
+					jtoc_validate.c \
+					jtoc_utils.c
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-INCS		=		-I$(INC_DIR) \
-					-I$(INC_FT)
+INCS		=		-I$(INC_DIR)
 
 CC 			=		gcc
 CFLAGS		=		-Wall -Werror -Wextra -g
 
 test: $(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) $(INCS) $(OBJ) -L../libft -lft
+	$(CC) $(CFLAGS) $(INCS) $(OBJ)
 
 all: $(NAME)
 
@@ -43,7 +41,6 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
-	@echo "1" > ../$(TEMP)
 
 clean:
 	rm -rf $(OBJ_DIR)

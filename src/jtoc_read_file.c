@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reader.c                                           :+:      :+:    :+:   */
+/*   jtoc_read_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 19:28:09 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/28 20:05:15 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/29 00:51:02 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	jtoc_read_file(const char *path, char **res)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (FUNCTION_FAILURE);
-	if ((len = read(fd, &buf, BUF_SIZE)) <= 0 || !(*res = ft_strnew(len)))
+	if ((len = read(fd, &buf, BUF_SIZE)) <= 0 || !(*res = jtoc_strnew(len)))
 	{
 		close(fd);
 		return (FUNCTION_FAILURE);

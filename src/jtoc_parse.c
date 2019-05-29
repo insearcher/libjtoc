@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   jtoc_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/28 19:45:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/29 00:52:20 by sbednar          ###   ########.fr       */
+/*   Created: 2019/05/29 00:22:42 by sbednar           #+#    #+#             */
+/*   Updated: 2019/05/29 00:23:54 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libjtoc.h"
-#include <stdio.h>
 
-int	main(int argc, char **argv)
+int jtoc_parse(const char *str)
 {
-	char *res = NULL;
-	if (argc == 2)
-		jtoc_read_file(argv[1], &res);
-	printf("%d\n", jtoc_validate(res));
-	return (0);
+
 }
