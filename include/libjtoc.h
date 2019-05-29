@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 19:28:19 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/29 19:30:23 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/29 22:03:42 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int							jtoc_find(const char *str, const char s, int i, int d);
 int							jtoc_read_file(const char *path, char **res);
 int							jtoc_validate(const char *str);
 int							jtoc_validate_token(const char *str, int b, int e);
+int							jtoc_validate_field(const char *str, int c, int e);
 
 #endif

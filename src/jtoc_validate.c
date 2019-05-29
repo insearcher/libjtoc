@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 00:24:02 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/29 19:40:56 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/29 22:04:47 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,22 @@ static int	jtoc_validate_array(const char *str, int b, int e)
 	{
 		if ((c = jtoc_find_comma(str, b) - 1) < 0 || c > e)
 			c = e;
-		if ((str[b] == '"' && jtoc_validate_string(str, b, c) < 0) ||
-			((str[b] == '-' || (str[b] >= '0' && str[b] <= '9')) &&
-				jtoc_validate_number(str, b, c) < 0) ||
-			(str[b] == '[' && jtoc_validate_array(str, b, c) < 0) ||
-			(str[b] == '{' && jtoc_validate_object(str, b, c) < 0) ||
-			(str[b] != '"' && str[b] != '[' && str[b] != '{' &&
-				str[b] != '-' && (str[b] < '0' || str[b] > '9')))
+		if (jtoc_validate_field(str, b, c))
 			return (FUNCTION_FAILURE);
 		b = c + (c == e ? 0 : 2);
 	}
 	return (b > e ? FUNCTION_FAILURE : FUNCTION_SUCCESS);
+}
+
+int		jtoc_validate_field(const char *str, int c, int e)
+{
+	return ((str[c] == '"' && jtoc_validate_string(str, c, e) < 0) ||
+		((str[c] == '-' || (str[c] >= '0' && str[c] <= '9')) &&
+			jtoc_validate_number(str, c, e) < 0) ||
+		(str[c] == '[' && jtoc_validate_array(str, c, e) < 0) ||
+		(str[c] == '{' && jtoc_validate_object(str, c, e) < 0) ||
+		(str[c] != '"' && str[c] != '[' && str[c] != '{' &&
+			str[c] != '-' && (str[c] < '0' || str[c] > '9')));
 }
 
 // Валидируем поле типа "name": value,
@@ -110,13 +115,7 @@ int			jtoc_validate_token(const char *str, int b, int e)
 
 	if ((c = jtoc_find(str, ':', b, F_RIGHT)) < 0 ||
 		str[b] != '"' || str[c - 1] != '"' ||
-		(str[c + 1] == '"' && jtoc_validate_string(str, c + 1, e) < 0) ||
-		((str[c + 1] == '-' || (str[c + 1] >= '0' && str[c + 1] <= '9')) &&
-			jtoc_validate_number(str, c + 1, e) < 0) ||
-		(str[c + 1] == '[' && jtoc_validate_array(str, c + 1, e) < 0) ||
-		(str[c + 1] == '{' && jtoc_validate_object(str, c + 1, e) < 0) ||
-		(str[c + 1] != '"' && str[c + 1] != '[' && str[c + 1] != '{' &&
-			str[c + 1] != '-' && (str[c + 1] < '0' || str[c + 1] > '9')))
+		jtoc_validate_field(str, c + 1, e))
 		return (FUNCTION_FAILURE);
 	return (FUNCTION_SUCCESS);
 }
