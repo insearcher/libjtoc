@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 19:28:19 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/29 16:38:44 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/29 19:30:23 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 # define FUNCTION_SUCCESS	0
 # define FUNCTION_FAILURE	-1
@@ -43,6 +44,7 @@ int							jtoc_strlen(const char *str);
 
 int							jtoc_is_space(const char c);
 int							jtoc_skip_spaces(const char *str, int i);
+int							jtoc_remove_spaces(char **str);
 
 int							jtoc_find(const char *str, const char s, int i, int d);
 

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 00:34:11 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/29 16:10:06 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/29 19:32:54 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,47 @@ int		jtoc_find(const char *str, const char s, int i, int p)
 int		jtoc_max(int a, int b)
 {
 	return (a > b ? a : b);
+}
+
+static int	jtoc_strlen_without_spaces(char *str)
+{
+	int		ns;
+	int		len;
+	int		q;
+
+	len = -1;
+	ns = 0;
+	q = 0;
+	while (str[++len])
+	{
+		if (str[len] == '"')
+			q = (q + 1) % 2;
+		if (!jtoc_is_space(str[len]) || q)
+			++ns;
+	}
+	return (ns);
+}
+
+int			jtoc_remove_spaces(char **str)
+{
+	int		ns;
+	int		len;
+	int		q;
+	char	*tmp;
+
+	if (!str || !*str || !(tmp = jtoc_strnew(jtoc_strlen_without_spaces(*str))))
+		return (FUNCTION_FAILURE);
+	len = -1;
+	ns = -1;
+	q = 0;
+	while (str[0][++len])
+	{
+		if (str[0][len] == '"')
+			q = (q + 1) % 2;
+		if (!jtoc_is_space(str[0][len]) || q)
+			tmp[++ns] = str[0][len];
+	}
+	free(*str);
+	*str = tmp;
+	return (FUNCTION_SUCCESS);
 }

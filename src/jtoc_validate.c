@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 00:24:02 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/29 17:36:31 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/29 19:40:56 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	jtoc_validate_object(const char *str, int b, int e)
 		return (FUNCTION_FAILURE);
 	while (b < e)
 	{
-		if ((c = jtoc_find_comma(str, b) - 1) < 0)
+		if ((c = jtoc_find_comma(str, b) - 1) < 0 || c > e)
 			c = e;
 		if (jtoc_validate_token(str, b, c) < 0)
 			return (FUNCTION_FAILURE);
@@ -88,9 +88,7 @@ static int	jtoc_validate_array(const char *str, int b, int e)
 		return (FUNCTION_FAILURE);
 	while (b < e)
 	{
-		if ((c = jtoc_find_comma(str, b) - 1) < 0)
-			c = e;
-		if (c > e)
+		if ((c = jtoc_find_comma(str, b) - 1) < 0 || c > e)
 			c = e;
 		if ((str[b] == '"' && jtoc_validate_string(str, b, c) < 0) ||
 			((str[b] == '-' || (str[b] >= '0' && str[b] <= '9')) &&
