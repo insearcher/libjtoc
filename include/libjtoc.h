@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libjtoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 19:28:19 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/29 22:03:42 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/31 18:05:50 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include "libft.h"
 
 # define FUNCTION_SUCCESS	0
 # define FUNCTION_FAILURE	-1
@@ -31,13 +32,30 @@
 # define F_RIGHT			(1 << 0)
 # define F_ONLY_SPACES		(1 << 1)
 
-typedef struct				s_jtoken
+/* ************************************************************************** */
+/* TREE SECTION                                                               */
+/* ************************************************************************** */
+
+typedef struct				s_jnode
 {
 	char					type;
-	char					*name;
+	int						hash;
 	void					*data;
-	struct s_jtoken			*next;
-}							t_jtoken;
+	struct s_jnode			*right;
+	struct s_jnode			*down;
+}							t_jnode;
+
+t_jnode						*jtoc_node_create(const char type, char *name,
+	void *data);
+int							jtoc_node_insert_by_path(t_jnode **parent,
+	t_jnode *child, const char *path);
+int							jtoc_node_get_by_path(t_jnode **parent,
+	const char *path);
+void						jtoc_node_clear(t_jnode *parent);
+
+/* ************************************************************************** */
+/* END OF TREE SECTION                                                        */
+/* ************************************************************************** */
 
 char						*jtoc_strnew(size_t size);
 int							jtoc_strlen(const char *str);

@@ -3,33 +3,34 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/29 00:52:35 by sbednar          ###   ########.fr        #
+#    Updated: 2019/05/31 17:56:10 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 			=	libjtoc.a
+NAME 		=	libjtoc.a
 
-SRC_DIR			=	./src
-OBJ_DIR			=	./obj
-INC_DIR			=	./include
+SRC_DIR		=	./src
+OBJ_DIR		=	./obj
+INC_DIR		=	./include
 
-SRC				=	main.c	\
-					jtoc_read_file.c \
-					jtoc_validate.c \
-					jtoc_utils.c
+SRC			=	main.c	\
+				jtoc_read_file.c \
+				jtoc_validate.c \
+				jtoc_utils.c
 
-OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-INCS		=		-I$(INC_DIR)
+INCS		=	-I$(INC_DIR) -I./libft/include
+LIBS		=	-L./libft -lft
 
-CC 			=		gcc
-CFLAGS		=		-Wall -Werror -Wextra -g
+CC 			=	gcc
+CFLAGS		=	-Wall -Werror -Wextra -g
 
 test: $(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) $(INCS) $(OBJ)
+	$(CC) $(CFLAGS) $(INCS) $(OBJ) $(LIBS)
 
 all: $(NAME)
 
