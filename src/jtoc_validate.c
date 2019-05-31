@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 00:24:02 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/29 22:04:47 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/01 02:01:31 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,5 @@ int			jtoc_validate_token(const char *str, int b, int e)
 // Валидируем всю строку
 int			jtoc_validate(const char *str)
 {
-	return (jtoc_validate_object(str, 0, jtoc_strlen(str) - 1));
+	return (jtoc_validate_object(str, 0, ft_strlen(str) - 1));
 }
