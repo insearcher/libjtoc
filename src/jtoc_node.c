@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jtoc_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:46:35 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/31 18:13:48 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/01 01:30:59 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_next_hash(char **str)
 	int		res;
 
 	dup = *str;
-	while (*dup != '.')
+	while (*dup && *dup != '.')
 		++dup;
 	if (*dup)
 		*dup = '\0';
@@ -27,10 +27,9 @@ static int	get_next_hash(char **str)
 	return (res);
 }
 
-t_jnode	*jtoc_node_create(const char type, char *name, void *data)
+t_jnode		*jtoc_node_create(const char type, char *name, void *data)
 {
 	t_jnode	*res;
-	char	*name_dup;
 
 	if (!(res = (t_jnode *)malloc(sizeof(t_jnode))))
 		return (NULL);
@@ -42,18 +41,53 @@ t_jnode	*jtoc_node_create(const char type, char *name, void *data)
 	return (res);
 }
 
-// int		jtoc_node_insert_by_path(t_jnode **parent, t_jnode *child,
-// const char *path)
-// {
+int		jtoc_node_insert_by_path(t_jnode *root, t_jnode *child,
+const char *path)
+{
+	t_jnode	*cur;
 
-// }
+	if (!root)
+		return (FUNCTION_FAILURE);
+	cur = jtoc_node_get_by_path(root, path);
+	if (cur->down)
+	{
+		cur = cur->down;
+		while (cur->right)
+			cur = cur->right;
+		cur->right = child;
+	}
+	else
+		cur->down = child;
+	return (FUNCTION_SUCCESS);
+}
 
-// int		jtoc_node_get_by_path(t_jnode **parent, const char *path)
-// {
+t_jnode		*jtoc_node_get_by_path(t_jnode *parent, const char *path)
+{
+	t_jnode	*cur;
+	char	*dupf;
+	char	*dup;
+	int		hash;
 
-// }
+	if (!path || !parent || !(dup = ft_strdup(path)))
+		return (NULL);
+	dupf = dup;
+	cur = parent;
+	while ((hash = get_next_hash(&dup)) != 0)
+	{
+		cur = cur->down;
+		while (cur && cur->hash != hash)
+			cur = cur->right;
+		if (!cur)
+		{
+			cur = NULL;
+			break;
+		}
+	}
+	free(dupf);
+	return (cur);
+}
 
-void	jtoc_node_clear(t_jnode *cur)
+void		jtoc_node_clear(t_jnode *cur)
 {
 	if (cur->right)
 		jtoc_node_clear(cur->right);

@@ -3,14 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 23:40:02 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/24 18:55:43 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/01 00:39:32 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-include		../Makefile.inc
 
 NAME 	=	libft.a
 
@@ -106,7 +104,6 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -I$(INC_DIR) -o $@ -c $<
-	@echo "1" > ../$(TEMP)
 
 clean:
 	rm -rf $(OBJ_DIR)

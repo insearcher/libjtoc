@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libjtoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 19:28:19 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/31 18:05:50 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/01 01:26:02 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ typedef struct				s_jnode
 
 t_jnode						*jtoc_node_create(const char type, char *name,
 	void *data);
-int							jtoc_node_insert_by_path(t_jnode **parent,
+int							jtoc_node_insert_by_path(t_jnode *root,
 	t_jnode *child, const char *path);
-int							jtoc_node_get_by_path(t_jnode **parent,
+t_jnode						*jtoc_node_get_by_path(t_jnode *root,
 	const char *path);
 void						jtoc_node_clear(t_jnode *parent);
 
