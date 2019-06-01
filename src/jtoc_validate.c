@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   jtoc_validate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 00:24:02 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/01 02:01:31 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/01 14:55:35 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libjtoc.h"
 #include <stdio.h>
 
-static int	jtoc_find_comma(const char *str, int i)
+int			jtoc_find_comma(const char *str, int i)
 {
 	int	bro;
 	int	bra;
@@ -37,7 +37,7 @@ static int	jtoc_find_comma(const char *str, int i)
 	return (-1);
 }
 
-static int	jtoc_validate_number(const char *str, int b, int e)
+int			jtoc_validate_number(const char *str, int b, int e)
 {
 	if (str[b] == '-')
 		++b;
@@ -54,14 +54,14 @@ static int	jtoc_validate_number(const char *str, int b, int e)
 		FUNCTION_SUCCESS);
 }
 
-static int	jtoc_validate_string(const char *str, int b, int e)
+int			jtoc_validate_string(const char *str, int b, int e)
 {
 	return (str[b] == '"' && str[e] == '"' ?
 		FUNCTION_SUCCESS :
 		FUNCTION_FAILURE);
 }
 
-static int	jtoc_validate_object(const char *str, int b, int e)
+int			jtoc_validate_object(const char *str, int b, int e)
 {
 	int	c;
 
@@ -73,14 +73,14 @@ static int	jtoc_validate_object(const char *str, int b, int e)
 	{
 		if ((c = jtoc_find_comma(str, b) - 1) < 0 || c > e)
 			c = e;
-		if (jtoc_validate_token(str, b, c) < 0)
+		if (jtoc_validate_field(str, b, c) < 0)
 			return (FUNCTION_FAILURE);
 		b = c + (c == e ? 0 : 2);
 	}
 	return (b > e ? FUNCTION_FAILURE : FUNCTION_SUCCESS);
 }
 
-static int	jtoc_validate_array(const char *str, int b, int e)
+int		jtoc_validate_array(const char *str, int b, int e)
 {
 	int	c;
 
@@ -90,14 +90,14 @@ static int	jtoc_validate_array(const char *str, int b, int e)
 	{
 		if ((c = jtoc_find_comma(str, b) - 1) < 0 || c > e)
 			c = e;
-		if (jtoc_validate_field(str, b, c))
+		if (jtoc_validate_value(str, b, c))
 			return (FUNCTION_FAILURE);
 		b = c + (c == e ? 0 : 2);
 	}
 	return (b > e ? FUNCTION_FAILURE : FUNCTION_SUCCESS);
 }
 
-int		jtoc_validate_field(const char *str, int c, int e)
+int			jtoc_validate_value(const char *str, int c, int e)
 {
 	return ((str[c] == '"' && jtoc_validate_string(str, c, e) < 0) ||
 		((str[c] == '-' || (str[c] >= '0' && str[c] <= '9')) &&
@@ -109,13 +109,13 @@ int		jtoc_validate_field(const char *str, int c, int e)
 }
 
 // Валидируем поле типа "name": value,
-int			jtoc_validate_token(const char *str, int b, int e)
+int			jtoc_validate_field(const char *str, int b, int e)
 {
 	int	c;
 
 	if ((c = jtoc_find(str, ':', b, F_RIGHT)) < 0 ||
 		str[b] != '"' || str[c - 1] != '"' ||
-		jtoc_validate_field(str, c + 1, e))
+		jtoc_validate_value(str, c + 1, e))
 		return (FUNCTION_FAILURE);
 	return (FUNCTION_SUCCESS);
 }
