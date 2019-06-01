@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 00:22:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/01 16:34:11 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/01 17:05:43 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ int					jtoc_parse_field(t_jnode *p, const char *str, int b, int e)
 	char	*name;
 	int		c;
 
-	if (!(name = ft_strsub(str, b, e - b + 1)))
-		return (FUNCTION_FAILURE);
 	c = jtoc_find(str, ':', b, F_RIGHT);
+	if (!(name = ft_strsub(str, b + 1, c - b - 2)))
+		return (FUNCTION_FAILURE);
 	child = jtoc_node_create(jtoc_get_field_type(str[c + 1]), name, NULL);
 	free(name);
 	if (!child)
