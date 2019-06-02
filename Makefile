@@ -6,9 +6,11 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/01 15:51:13 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/02 20:42:10 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+include			../Makefile.inc
 
 NAME 		=	libjtoc.a
 
@@ -16,24 +18,25 @@ SRC_DIR		=	./src
 OBJ_DIR		=	./obj
 INC_DIR		=	./include
 
-SRC			=	main.c	\
-				jtoc_read_file.c \
+FT_DIR		=	../libft
+FT_INC_DIR	=	../libft/include
+
+SRC			=	jtoc_read_file.c \
 				jtoc_validate.c \
+				jtoc_validate_value.c \
+				jtoc_parse.c \
+				jtoc_parse_value.c \
 				jtoc_utils.c \
 				jtoc_node.c \
-				jtoc_parse.c \
 				jtoc_read.c
 
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-INCS		=	-I$(INC_DIR) -I./libft/include
-LIBS		=	-L./libft -lft
+INCS		=	-I$(INC_DIR) -I$(FT_INC_DIR)
+LIBS		=	-L$(FT_DIR) -lft
 
 CC 			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g
-
-test: $(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) $(INCS) $(OBJ) $(LIBS)
+CFLAGS		=	-Wall -Werror -Wextra
 
 all: $(NAME)
 
@@ -45,6 +48,7 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
 
 clean:
 	rm -rf $(OBJ_DIR)

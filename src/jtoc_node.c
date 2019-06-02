@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jtoc_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:46:35 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 13:05:13 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/02 20:39:03 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,6 @@ t_jnode		*jtoc_node_create(enum e_type type, char *name, void *data)
 	return (res);
 }
 
-int		jtoc_node_insert_by_path(t_jnode *root, t_jnode *child,
-const char *path)
-{
-	t_jnode	*cur;
-
-	if (!root)
-		return (FUNCTION_FAILURE);
-	cur = jtoc_node_get_by_path(root, path);
-	if (cur->down)
-	{
-		cur = cur->down;
-		while (cur->right)
-			cur = cur->right;
-		cur->right = child;
-	}
-	else
-		cur->down = child;
-	return (FUNCTION_SUCCESS);
-}
-
 void		jtoc_node_add_child(t_jnode *parent, t_jnode *child)
 {
 	t_jnode	*cur;
@@ -101,7 +81,7 @@ t_jnode		*jtoc_node_get_by_path(t_jnode *parent, const char *path)
 		if (!cur)
 		{
 			cur = NULL;
-			break;
+			break ;
 		}
 	}
 	free(dupf);
