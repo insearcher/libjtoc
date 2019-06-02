@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jtoc_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:46:35 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/01 17:19:11 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/02 13:05:13 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,19 @@ static int	get_next_hash(char **str)
 {
 	char	*dup;
 	int		res;
+	char	c;
 
 	dup = *str;
 	while (*dup && *dup != '.')
 		++dup;
+	c = 0;
 	if (*dup)
+	{
+		c = *dup;
 		*dup = '\0';
+	}
 	res = ft_strhash(*str);
-	*str = ++dup;
+	*str = c ? dup + 1 : dup;
 	return (res);
 }
 
