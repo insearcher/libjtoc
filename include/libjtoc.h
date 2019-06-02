@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 19:28:19 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 20:43:56 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/02 20:48:17 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ enum						e_type
 typedef struct				s_jnode
 {
 	enum e_type				type;
-	char					*name;
 	int						hash;
 	void					*data;
 	struct s_jnode			*right;
